@@ -93,12 +93,12 @@ async def car_update(car_id: int, car: CarSchema, db: Session = Depends(get_db))
     if not car_db:
         raise HTTPException(status_code=404, detail='Car not found')
 
-    brand_model = db.query(Model).filter(Model.id == car_db.model_id,
-                                         Model.brand_id == car_db.brand_id).first()
+    brand_model = db.query(Model).filter(Model.id == car.model_id,
+                                         Model.brand_id == car.brand_id).first()
     if not brand_model:
         raise HTTPException(status_code=404, detail='Brand or model does not match')
 
-    seller_db = db.query(UserProfile).filter(UserProfile.id == car_db.seller_id).first()
+    seller_db = db.query(UserProfile).filter(UserProfile.id == car.seller_id).first()
     if not seller_db:
         raise HTTPException(status_code=404, detail='Seller not found')
 
